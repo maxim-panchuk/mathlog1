@@ -19,7 +19,7 @@ public class Counter {
     public String impl (LexemeBuffer lexemeBuffer) {
         String operand = dis(lexemeBuffer);
         while (lexemeBuffer.next().lexemeType == LexemeType.OP_IMPL) {
-            operand = "(->," + operand + "," + impl(lexemeBuffer) + ")";
+            operand = "(->," + operand + "," + dis(lexemeBuffer) + ")";
         }
         lexemeBuffer.back();
         return operand;
@@ -28,7 +28,7 @@ public class Counter {
     public String dis (LexemeBuffer lexemeBuffer) {
         String operand = con(lexemeBuffer);
         while (lexemeBuffer.next().lexemeType == LexemeType.OP_DIS) {
-            operand = "(|," + operand + "," + dis(lexemeBuffer) + ")";
+            operand = "(|," + operand + "," + con(lexemeBuffer) + ")";
         }
         lexemeBuffer.back();
         return operand;

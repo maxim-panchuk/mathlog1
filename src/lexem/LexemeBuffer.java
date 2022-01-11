@@ -21,8 +21,4 @@ public class LexemeBuffer {
     public int getPos() {
         return pos;
     }
-
-    public int getLength() {
-        return lexemes.size();
-    }
 }

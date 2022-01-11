@@ -7,15 +7,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String expression1 = "C&D|E|F&G";
+        String expression1 = "P1'->!QQ->!R10&S|!T&U&V";
         LexemeAnalyzer lexemeAnalyzer = new LexemeAnalyzer();
-        List<Lexeme> lexemeList = lexemeAnalyzer.lexAnalyze(expression1);
-        System.out.println(lexemeList.toString());
-        //Separator separator = new Separator();
+        List<Lexeme> lexemeList1 = lexemeAnalyzer.lexAnalyze(expression1);
         Counter counter = new Counter();
-        LexemeBuffer lexemeBuffer = new LexemeBuffer(lexemeList);
-        System.out.println(counter.expr(lexemeBuffer));
-
+        LexemeBuffer lexemeBuffer1 = new LexemeBuffer(lexemeList1);
+        System.out.println(counter.expr(lexemeBuffer1));
     }
-
 }

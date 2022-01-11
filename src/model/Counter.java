@@ -18,40 +18,33 @@ public class Counter {
 
     public String impl (LexemeBuffer lexemeBuffer) {
         String operand = dis(lexemeBuffer);
-        Lexeme lexeme = lexemeBuffer.next();
-        if (lexeme.lexemeType == LexemeType.OP_IMPL) {
-            return "(->," + operand + "," + impl(lexemeBuffer) + ")";
-        } else {
-            lexemeBuffer.back();
-            return operand;
+        while (lexemeBuffer.next().lexemeType == LexemeType.OP_IMPL) {
+            operand = "(->," + operand + "," + impl(lexemeBuffer) + ")";
         }
+        lexemeBuffer.back();
+        return operand;
     }
 
     public String dis (LexemeBuffer lexemeBuffer) {
         String operand = con(lexemeBuffer);
-        Lexeme lexeme = lexemeBuffer.next();
-        if (lexeme.lexemeType == LexemeType.OP_DIS) {
-            return "(|," + operand + "," + dis(lexemeBuffer) + ")";
-        } else {
-            lexemeBuffer.back();
-            return operand;
+        while (lexemeBuffer.next().lexemeType == LexemeType.OP_DIS) {
+            operand = "(|," + operand + "," + dis(lexemeBuffer) + ")";
         }
+        lexemeBuffer.back();
+        return operand;
     }
 
     public String con (LexemeBuffer lexemeBuffer) {
         String operand = neg(lexemeBuffer);
-        Lexeme lexeme = lexemeBuffer.next();
-        if (lexeme.lexemeType == LexemeType.OP_CON) {
-            return "(&," + operand + "," + con(lexemeBuffer) + ")";
-        } else {
-            lexemeBuffer.back();
-            return operand;
+        while (lexemeBuffer.next().lexemeType == LexemeType.OP_CON) {
+            operand = "(&," + operand + "," + neg(lexemeBuffer) + ")";
         }
+        lexemeBuffer.back();
+        return operand;
     }
 
     public String neg (LexemeBuffer lexemeBuffer) {
-        Lexeme lexeme = lexemeBuffer.next();
-        if (lexeme.lexemeType == LexemeType.OP_NEG) {
+        if (lexemeBuffer.next().lexemeType == LexemeType.OP_NEG) {
             return "(!" + neg(lexemeBuffer) + ")";
         } else {
             lexemeBuffer.back();
